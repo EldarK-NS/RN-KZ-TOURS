@@ -8,11 +8,13 @@ import LogIn from "../src/Screens/LogIn";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import SignUp from "../src/Screens/SignUp";
+import { useRoute } from "@react-navigation/core";
 
 const HomeStack = createStackNavigator();
 
 export default function HomeNavigator() {
   const navigation = useNavigation();
+  const route = useRoute();
   return (
     <HomeStack.Navigator
     // screenOptions={{
@@ -40,9 +42,7 @@ export default function HomeNavigator() {
       <HomeStack.Screen
         name="Tour"
         component={TourScreen}
-        options={{
-          title: "Tour",
-        }}
+        options={({ route }) => ({ title: route.params.title })}
       />
       <HomeStack.Screen
         name="Map"

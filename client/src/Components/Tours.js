@@ -1,22 +1,38 @@
-import React from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, FlatList, ActivityIndicator } from "react-native";
 import TourItem from "./TourItem";
-import data from "../../assets/data/tours.json";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTours } from "./../../redux/actions/tours";
 
-export default function Tours() {
+export const Tours = () => {
+  const dispatch = useDispatch();
+  const fetchedData = useSelector((state) => state.tours.tours);
+  const loading = useSelector((state) => state.app.loading);
+
+  useEffect(() => {
+    dispatch(getAllTours());
+  }, []);
+
+  if (!fetchedData || loading) {
+    return (
+      <ActivityIndicator size="large" color="blue" style={styles.loader} />
+    );
+  }
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
+        data={fetchedData.data}
         renderItem={(el) => <TourItem data={el.item} />}
         keyExtractor={(el) => el._id}
       />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  //   container: {
-  //     flexDirection: "row",
-  //   },
+  loader: {
+    alignSelf: "center",
+    justifyContent: "center",
+    marginTop: 200,
+  },
 });

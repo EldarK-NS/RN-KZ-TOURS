@@ -14,16 +14,17 @@ export default function TourItem({ data }) {
   const navigation = useNavigation();
 
   const openTour = () => {
-    navigation.navigate("Tour");
+    navigation.navigate("Tour", {
+      id: data._id,
+      title: data.name,
+    });
   };
   return (
     <TouchableOpacity onPress={openTour}>
       <View style={styles.container}>
         <Image
           style={styles.img}
-          source={{
-            uri: "https://images.ctfassets.net/hrltx12pl8hq/72HS9gzO2aIo6Ew7f82gmY/ea51b9e5e3549a9844f75c0cf58aec7e/05-nature_1487897981.jpg?fit=fill&w=480&h=270",
-          }}
+          source={require("../../assets/data/img/tours/tour-1-3.jpg")}
           resizeMode="cover"
         />
 

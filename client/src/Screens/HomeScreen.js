@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text, StyleSheet, View } from "react-native";
-import Tours from "../Components/Tours";
+import { Tours } from "../Components/Tours";
 
 export default class HomeScreen extends Component {
   render() {

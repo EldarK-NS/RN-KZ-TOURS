@@ -10,6 +10,7 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
+router.route('/').get(userController.getAllUsers);
 
 //!Все что будет идти ниже этой функции будет защищено "authController.protect"
 router.use(authController.protect);
@@ -22,10 +23,7 @@ router.delete('/deleteMe', userController.deleteMe);
 //!Все что будет идти ниже этой функции будет защищено "authController.protect" + "authController.restrictTo('admin')"
 router.use(authController.restrictTo('admin'));
 
-router
-  .route('/')
-  .get(userController.getAllUsers)
-  .post(userController.createUser);
+router.route('/').post(userController.createUser);
 router
   .route('/:id')
   .get(userController.getUser)

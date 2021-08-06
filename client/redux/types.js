@@ -1,0 +1,12 @@
+//TOURS
+export const GET_ALL_TOURS = "GET_ALL_TOURS";
+
+//USERS
+export const GET_ALL_USERS = "GET_ALL_USERS";
+
+//LOADER
+export const SHOW_LOADER = "SHOW_LOADER";
+export const HIDE_LOADER = "HIDE_LOADER";
+
+//REVIEWS
+export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";

@@ -3,3 +3,6 @@ npm install eslint prettier eslint-config-prettier eslint-plugin-prettier eslint
 "engines": {
 "node": ">=10.0.0"
 }
+
+
+//"proxy": "http://localhost:8000",

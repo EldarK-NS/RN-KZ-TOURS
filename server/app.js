@@ -7,6 +7,7 @@ const helmet = require('helmet');
 const mongoSinitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
+const bodyParser = require('body-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -16,8 +17,9 @@ const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
 
-// app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+// // app.set('view engine', 'pug');
+// app.set('views', path.join(__dirname, 'views'));
+app.use(bodyParser.json());
 
 //Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -29,14 +31,14 @@ app.use(helmet());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
-//Limit request from same API
-const limiter = rateLimit({
-  max: 100,
-  windowMs: 60 * 60 * 1000,
-  messge: 'Too many requests from this IP, please try again in an hour! ',
-});
-app.use('/api', limiter);
-
+//TODO: !Limit request from same API -отключил временно!!!!-----------
+// const limiter = rateLimit({
+//   max: 100,
+//   windowMs: 60 * 60 * 1000,
+//   messge: 'Too many requests from this IP, please try again in an hour! ',
+// });
+// app.use('/api', limiter);
+//TODO:----------------------------------------
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 

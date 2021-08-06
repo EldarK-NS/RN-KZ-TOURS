@@ -4,12 +4,13 @@ const authController = require('../controllers/authController');
 const reviewController = require('../controllers/reviewController');
 
 const router = express.Router({ mergeParams: true });
+
+router.route('/').get(reviewController.getAllReviews);
 //!Все что будет идти ниже этой функции будет защищено "authController.protect"
 router.use(authController.protect);
 
 router
   .route('/')
-  .get(reviewController.getAllReviews)
   .post(
     authController.restrictTo('user'),
     reviewController.setTourUserIds,

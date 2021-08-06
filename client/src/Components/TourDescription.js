@@ -1,6 +1,5 @@
-import React from "react";
-import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
-import data from "../../assets/data/tours1.json";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 import {
   Ionicons,
   MaterialIcons,
@@ -8,7 +7,7 @@ import {
   FontAwesome5,
 } from "@expo/vector-icons";
 
-export default function TourDescription() {
+export default function TourDescription({ data }) {
   return (
     <View style={styles.container}>
       <View style={styles.facts}>
@@ -25,7 +24,7 @@ export default function TourDescription() {
             <Entypo name="bar-graph" size={16} color="#5850f2" />
             <Text style={styles.infoText}>
               <Text style={{ fontWeight: "700" }}>DIFFICULTY:</Text>{" "}
-              {data.startLocation.description}
+              {data.difficulty}
             </Text>
           </View>
           <View style={styles.infoContainer}>
@@ -41,38 +40,12 @@ export default function TourDescription() {
             <Text style={styles.infoText}>
               {" "}
               <Text style={{ fontWeight: "700" }}>RATING:</Text>{" "}
-              {data.locations.length}{" "}
+              {data.ratingsAverage}{" "}
             </Text>
           </View>
         </View>
       </View>
-
-      <View style={styles.guides}>
-        <Text style={styles.title}>YOUR TOUR GUIDES</Text>
-        <View style={styles.guideContainer}>
-          <View style={styles.guideProf}>
-            <Image
-              source={require("../../assets/data/img/users/user-1.jpg")}
-              style={styles.image}
-            />
-            <View style={styles.guideName}>
-              <Text style={styles.guideRole}>Lead Guide </Text>
-              <Text style={styles.guideName}>Alex Alex</Text>
-            </View>
-          </View>
-          <View style={styles.guideProf}>
-            <Image
-              source={require("../../assets/data/img/users/user-2.jpg")}
-              style={styles.image}
-              resizeMode="cover"
-            />
-            <View style={styles.guideName}>
-              <Text style={styles.guideRole}>Tour Guide </Text>
-              <Text style={styles.guideName}>Jennifer Hardy</Text>
-            </View>
-          </View>
-        </View>
-      </View>
+      <View style={styles.line} />
       <View style={styles.descrContainer}>
         <Text style={styles.title}>ABOUT TOUR</Text>
         <Text style={styles.text}>{data.description} </Text>
@@ -91,6 +64,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     fontWeight: "bold",
   },
+  line: {
+    width: 150,
+    height: 1,
+    backgroundColor: "black",
+    marginVertical: 5,
+  },
   info: {
     flexDirection: "row",
     justifyContent: "space-around",
@@ -105,28 +84,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 3,
   },
-  guides: {
-    marginVertical: 10,
-    width: "100%",
-  },
-  guideContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-  },
-  guideProf: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  image: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-  },
-  guideRole: {
-    fontWeight: "700",
-  },
-  guideName: {},
+
   descrContainer: {
     width: Dimensions.get("screen").width - 30,
   },
