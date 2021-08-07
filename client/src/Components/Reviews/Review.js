@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
+import moment from "moment";
 
 export default function Review({ data }) {
   return (
@@ -13,11 +14,9 @@ export default function Review({ data }) {
           />
           <Text style={styles.name}>{data.user.name}</Text>
         </View>
-        <Text style={styles.date}>{data.createdAt}</Text>
+        <Text style={styles.date}>{moment(data.createdAt).format("L")}</Text>
       </View>
-      <Text style={styles.review} numberOfLines={2}>
-        {data.review}
-      </Text>
+      <Text style={styles.review}>{data.review}</Text>
     </View>
   );
 }

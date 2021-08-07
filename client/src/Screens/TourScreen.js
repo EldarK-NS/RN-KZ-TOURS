@@ -1,25 +1,14 @@
-import React, { useRef, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  ScrollView,
-  Image,
-  ActivityIndicator,
-  FlatList,
-} from "react-native";
+import React, { useEffect } from "react";
+import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import Banner from "../Components/Banner";
 import TourDescription from "../Components/TourDescription";
 import { useNavigation } from "@react-navigation/core";
 import { useRoute } from "@react-navigation/core";
-import Review from "../Components/Reviews/Review";
-
 import { useSelector, useDispatch } from "react-redux";
 import { getAllReviews } from "./../../redux/actions/reviews";
+import BottomSheetReviews from "../Components/BottomSheetReviews";
 
 const TourScreen = () => {
-  const sheetRef = useRef(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const route = useRoute();
@@ -42,25 +31,21 @@ const TourScreen = () => {
       title: tour.name,
     });
   };
-
   return (
     <ScrollView>
       <View style={styles.container}>
         <Banner />
+
         <TourDescription data={tour} />
         <Pressable style={styles.button} onPress={goToMap}>
           <Text>Tour Map & Guides</Text>
         </Pressable>
         <View style={styles.line} />
+
         {!reviews ? (
           <Text>Loading...</Text>
         ) : (
-          <>
-            <Pressable onPress={handlePress}>
-              <Text style={styles.title}>REVIEWS</Text>
-              <Review data={reviews[0]} />
-            </Pressable>
-          </>
+          <BottomSheetReviews data={reviews} />
         )}
       </View>
     </ScrollView>
@@ -72,6 +57,11 @@ export default TourScreen;
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bottomBlock: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
