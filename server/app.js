@@ -7,7 +7,7 @@ const helmet = require('helmet');
 const mongoSinitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -16,10 +16,6 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 
 const app = express();
-
-// // app.set('view engine', 'pug');
-// app.set('views', path.join(__dirname, 'views'));
-app.use(bodyParser.json());
 
 //Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -42,6 +38,8 @@ if (process.env.NODE_ENV === 'development') {
 // Body parser, reading data from body into req.body
 app.use(express.json({ limit: '10kb' }));
 
+app.use(cookieParser());
+
 //Data sanitization against NoSQL query injection
 app.use(mongoSinitize());
 
@@ -61,31 +59,14 @@ app.use(
     ],
   })
 );
-
-// app.use((req, res, next) => {
-//   req.requesTime = new Date().toISOString();
-//   console.log(req.headers);
-//   next();
-// });
+//TEST MIDDLEWARE
+app.use((req, res, next) => {
+  req.requesTime = new Date().toISOString();
+  console.log(req.cookie);
+  next();
+});
 
 //!ROUTES
-
-// app.get('/', (req, res) => {
-//   res.status(200).render('base', {
-//     tour: 'The Forest Hicker',
-//     user: 'Jonas',
-//   });
-// });
-// app.get('/overview', (req, res) => {
-//   res.status(200).render('overview', {
-//     title: 'All Tours',
-//   });
-// });
-// app.get('/tour', (req, res) => {
-//   res.status(200).render('tour', {
-//     title: 'The Forest Hiker Tour',
-//   });
-// });
 
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);

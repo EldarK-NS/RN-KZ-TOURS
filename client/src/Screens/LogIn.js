@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/actions/auth";
 
 export default function LogIn() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+
+  //   const user = useSelector((state) => state.auth);
+  //   console.log(user);
+
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("loulou@example.com");
+  const [password, setPassword] = useState("test1234");
+
+  const handlerSubmit = () => {
+    dispatch(login(email, password));
+    navigation.navigate("HomeScreen");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>LOG IN</Text>
@@ -13,20 +26,25 @@ export default function LogIn() {
         <Text style={styles.label}>Email</Text>
         <TextInput
           placeholder="enter your email"
-          onChangeText={(e) => setEmail(e.target.value)}
+          onChangeText={setEmail}
           style={styles.input}
           value={email}
         />
         <Text style={styles.label}>Password</Text>
         <TextInput
           placeholder="enter your password"
-          onChangeText={(e) => setPassword(e.target.value)}
+          onChangeText={setPassword}
           style={styles.input}
           value={password}
         />
       </View>
       <Pressable style={styles.submitButton}>
-        <Text style={{ fontWeight: "bold", color: "white" }}>SUBMIT</Text>
+        <Text
+          style={{ fontWeight: "bold", color: "white" }}
+          onPress={handlerSubmit}
+        >
+          SUBMIT
+        </Text>
       </Pressable>
       <Pressable onPress={() => navigation.navigate("Signup")}>
         <Text style={{ color: "red", marginTop: 50 }}>

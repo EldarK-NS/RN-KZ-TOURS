@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../redux/actions/auth";
 
 export default function SignUp() {
   const navigation = useNavigation();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const [name, setName] = useState("Test");
+  const [email, setEmail] = useState("test@test.com");
+  const [password, setPassword] = useState("test1234");
+  const [passwordConfirm, setPasswordConfirm] = useState("test1234");
+
+  const handleSignUp = () => {
+    dispatch(signUp(name, email, password, passwordConfirm));
+    navigation.navigate("HomeScreen");
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>LOG IN</Text>
@@ -15,36 +24,33 @@ export default function SignUp() {
         <Text style={styles.label}>Name</Text>
         <TextInput
           placeholder="enter your name"
-          onChangeText={(e) => setName(e.target.value)}
+          onChangeText={setName}
           style={styles.input}
           value={name}
         />
         <Text style={styles.label}>Email</Text>
         <TextInput
           placeholder="enter your email"
-          onChangeText={(e) => setEmail(e.target.value)}
+          onChangeText={setEmail}
           style={styles.input}
           value={email}
         />
         <Text style={styles.label}>Password</Text>
         <TextInput
           placeholder="enter your password"
-          onChangeText={(e) => setPassword(e.target.value)}
+          onChangeText={setPassword}
           style={styles.input}
           value={password}
         />
         <Text style={styles.label}>Confirm Password</Text>
         <TextInput
           placeholder="please confirm password"
-          onChangeText={(e) => setConfirmPassword(e.target.value)}
+          onChangeText={setPasswordConfirm}
           style={styles.input}
-          value={confirmPassword}
+          value={passwordConfirm}
         />
       </View>
-      <Pressable
-        style={styles.submitButton}
-        onPress={() => navigation.navigate("HomeScreen")}
-      >
+      <Pressable style={styles.submitButton} onPress={handleSignUp}>
         <Text style={{ fontWeight: "bold", color: "white" }}>SIGN UP</Text>
       </Pressable>
     </View>

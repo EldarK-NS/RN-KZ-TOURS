@@ -9,12 +9,17 @@ import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import SignUp from "../src/Screens/SignUp";
 import { useRoute } from "@react-navigation/core";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../redux/actions/auth";
 
 const HomeStack = createStackNavigator();
 
 export default function HomeNavigator() {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
-  const route = useRoute();
+
+  const user = useSelector((state) => state.auth);
+  console.log(user);
   return (
     <HomeStack.Navigator
     // screenOptions={{
@@ -26,19 +31,30 @@ export default function HomeNavigator() {
         component={HomeScreen}
         options={{
           title: "Kazakhstan Tours",
-          headerRight: () => (
-            <AntDesign
-              name="login"
-              size={24}
-              color="black"
-              onPress={() => {
-                navigation.navigate("Login");
-              }}
-              style={{ marginRight: 20 }}
-            />
-          ),
+          headerRight: () => {
+            return !user.isAuthenticated ? (
+              <AntDesign
+                name="login"
+                size={24}
+                color="black"
+                onPress={() => {
+                  navigation.navigate("Login");
+                }}
+                style={{ marginRight: 20 }}
+              />
+            ) : (
+              <AntDesign
+                name="logout"
+                size={24}
+                color="black"
+                onPress={() => dispatch(logout())}
+                style={{ marginRight: 20 }}
+              />
+            );
+          },
         }}
       />
+
       <HomeStack.Screen
         name="Tour"
         component={TourScreen}

@@ -1,17 +1,12 @@
 import React, { useCallback, useMemo, useRef } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { ScrollView, FlatList } from "react-native-gesture-handler";
+import { FlatList } from "react-native-gesture-handler";
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
-} from "@gorhom/bottom-sheet";
-
-import Review from "./Reviews/Review";
-import {
   TouchableOpacity,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
 } from "@gorhom/bottom-sheet";
+import Review from "./Reviews/Review";
 
 const BottomSheetReviews = ({ data }) => {
   // ref
