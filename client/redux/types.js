@@ -1,8 +1,16 @@
 //TOURS
 export const GET_ALL_TOURS = "GET_ALL_TOURS";
+export const GET_TOUR = "GET_TOUR";
+export const GET_ALL_SORTING_TOURS = "GET_ALL_SORTING_TOURS";
+export const TOURS_LOADING_FAIL = "TOURS_LOADING_FAIL";
 
 //USERS
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const ADD_TOUR_TO_FAVORITE = "ADD_TOUR_TO_FAVORITE";
+export const REMOVE_TOUR_FROM_FAVORITE = "REMOVE_TOUR_FROM_FAVORITE";
+export const GET_USER = "GET_USER";
+export const USER_LOADING_FAIL = "USER_LOADING_FAIL";
+export const TOUR_ADD_FAIL = "TOUR_ADD_FAIL";
 
 //LOADER
 export const SHOW_LOADER = "SHOW_LOADER";
@@ -10,7 +18,8 @@ export const HIDE_LOADER = "HIDE_LOADER";
 
 //REVIEWS
 export const GET_ALL_REVIEWS = "GET_ALL_REVIEWS";
-
+export const GET_REVIEWS_FROM_TOUR = "GET_REVIEWS_FROM_TOUR";
+export const REVIEWS_LOADING_FAIL = "REVIEWS_LOADING_FAIL";
 //AUTH
 
 export const USER_LOADED = "USER_LOADED";
@@ -19,3 +28,5 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = " LOGOUT";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAIL = "SIGN_UP_FAIL";
+export const LOAD_USER = "LOAD_USER";
+export const LOAD_USER_ERROR = "LOAD_USER_ERROR";

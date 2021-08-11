@@ -24,7 +24,7 @@ export default function TourItem({ data }) {
       <View style={styles.container}>
         <Image
           style={styles.img}
-          source={require("../../assets/data/img/tours/tour-1-3.jpg")}
+          source={{ uri: data.imageCover }}
           resizeMode="cover"
         />
 

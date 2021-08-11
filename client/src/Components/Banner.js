@@ -21,6 +21,11 @@ export default function Banner() {
       "https://www.yucatan-holidays.com/yh2016/wp-content/uploads/2010/11/aztecdancer.jpg",
       "https://www.offthevine.it/wp-content/uploads/2016/08/wine-tour.jpg",
       "https://guardian.ng/wp-content/uploads/2020/07/Vinicunca-monta%C3%B1a-de-colores.-Photo-Private-Peru-Tours-1.jpg",
+      "https://i2.wp.com/apgazeta.kz/wp-content/uploads/2016/06/074-8-3.jpg?ssl=1",
+      "https://visitkazakhstan.kz/uploads/img/128023668493_image.jpg",
+      "https://i0.wp.com/apgazeta.kz/wp-content/uploads/2016/06/074-8-8.jpg?resize=460%2C345&ssl=1",
+      "https://www.rknews.kz/wp-content/uploads/2019/04/saygak-_1_.jpg",
+      "https://horosho-tam.ru/thumb/600/expics/50/f7/01a3d6a96dcdc61f3d4a565c29d1f750.jpg",
     ]);
     return () => {
       setBannerData([]);

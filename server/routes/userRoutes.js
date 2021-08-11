@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
+router.get('/logout', authController.login);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
 router.route('/').get(userController.getAllUsers);
@@ -18,6 +19,11 @@ router.patch('/updateMyPassword', authController.updatePassword);
 
 router.get('/me', userController.getMe, userController.getUser);
 router.patch('/updateMe', userController.updateMe);
+router.put('/updateMe/addToFavorite', userController.addTourToFavorite);
+router.put(
+  '/updateMe/removeFromFavorite',
+  userController.removeTourFromFavorite
+);
 router.delete('/deleteMe', userController.deleteMe);
 
 //!Все что будет идти ниже этой функции будет защищено "authController.protect" + "authController.restrictTo('admin')"

@@ -9,8 +9,8 @@ export default function GuideProfile({ guide }) {
         style={styles.image}
       />
       <View style={styles.guideName}>
-        <Text style={styles.guideRole}>{guide.role} </Text>
-        <Text style={styles.guideName}>{guide.name}</Text>
+        <Text style={styles.guideRole}>{guide.item.role} </Text>
+        <Text style={styles.guideName}>{guide.item.name}</Text>
       </View>
     </View>
   );

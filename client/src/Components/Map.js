@@ -1,19 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, ActivityIndicator } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
+import { StyleSheet, View, Dimensions, ActivityIndicator } from "react-native";
 
-import { useRoute } from "@react-navigation/core";
-import { useSelector } from "react-redux";
+//TODO POLYLINE!!!
 
-export default function Map() {
-  const route = useRoute();
-  const tourId = route.params.id;
-  const tour = useSelector(
-    (state) =>
-      state.tours.tours.data.find((item) => item._id === tourId).locations
-  );
-
-  if (!tour) {
+export default function Map({ data }) {
+  if (!data) {
     return (
       <ActivityIndicator size="large" color="blue" style={styles.loader} />
     );
@@ -25,13 +17,13 @@ export default function Map() {
         style={StyleSheet.absoluteFillObject}
         style={styles.map}
         initialRegion={{
-          latitude: tour[0].coordinates[1],
-          longitude: tour[0].coordinates[0],
+          latitude: data[0].coordinates[1],
+          longitude: data[0].coordinates[0],
           latitudeDelta: 3.5,
           longitudeDelta: 3.5,
         }}
       >
-        {tour.map((marker, index) => (
+        {data.map((marker, index) => (
           <Marker
             key={index}
             coordinate={{

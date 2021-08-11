@@ -1,18 +1,21 @@
 import {
-  USER_LOADED,
+  USER_LOADING_FAIL,
   LOGIN_SUCCES,
   LOGIN_FAIL,
   LOGOUT,
-  AUTH_ERROR,
   SIGN_UP_FAIL,
   SIGN_UP_SUCCESS,
+  LOAD_USER,
+  LOAD_USER_ERROR,
 } from "../types";
 import axios from "axios";
-import setAuthToken from "./../../utils/setAuthToken";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// //Load user(token)
-// export const loadUser = () => async (dispatch) => {};
+// export function loadUser(){
+//    return async(dispatch)=>{
+
+//    }
+// }
 
 export function login(email, password) {
   return async (dispatch) => {
@@ -25,14 +28,18 @@ export function login(email, password) {
           password,
         },
       });
-      await AsyncStorage.setItem("token", res.data.token);
-      // console.log(res.data);
+      const token = await AsyncStorage.setItem("token", res.data.token);
+      console.log(res.status);
       dispatch({
         type: LOGIN_SUCCES,
         payload: res.data,
+        payloadToken: token,
       });
     } catch (error) {
-      console.log(error.response.data.message);
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: error.response.data.message,
+      });
     }
   };
 }
@@ -40,12 +47,19 @@ export function login(email, password) {
 export function logout() {
   return async (dispatch) => {
     try {
+      await axios({
+        method: "GET",
+        url: "http://192.168.1.3:8000/api/v1/users/logout",
+      });
       await AsyncStorage.removeItem("token");
       dispatch({
         type: LOGOUT,
       });
     } catch (error) {
-      console.log(error.response.data.message);
+      dispatch({
+        type: USER_LOADING_FAIL,
+        payload: error.response.data.message,
+      });
     }
   };
 }
@@ -64,15 +78,14 @@ export function signUp(name, email, password, passwordConfirm) {
         },
       });
       await AsyncStorage.setItem("token", res.data.token);
-      console.log(res.data);
       dispatch({
         type: SIGN_UP_SUCCESS,
         payload: res.data,
       });
     } catch (error) {
-      console.log(error.response.data.message);
       dispatch({
         type: SIGN_UP_FAIL,
+        payload: error.response.data.message,
       });
     }
   };

@@ -1,38 +1,29 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
-import Map from "../Components/Map";
-import { useRoute } from "@react-navigation/core";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllUsers } from "../../redux/actions/users";
+import { StyleSheet, Text, View, FlatList } from "react-native";
+import { useRoute } from "@react-navigation/core";
+
+import Map from "../Components/Map";
 import GuideProfile from "../Components/GuideProfile";
 
-export default function MapReviewScreen() {
-  const dispatch = useDispatch();
-  const route = useRoute();
-  const tourID = route.params.id;
-  const tour = useSelector((state) =>
-    state.tours.tours.data.find((item) => item._id === tourID)
-  );
+//TODO add info to marker, make guides view
 
-  const users = useSelector((state) => state.users.users);
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, [tourID]);
+export default function MapReviewScreen() {
+  const route = useRoute();
+  const tour = useSelector((state) => state.tours.oneTour.data);
+
   return (
     <View>
-      <Map />
+      <Map data={tour.locations} />
       <View style={styles.guides}>
         <Text style={styles.title}>YOUR TOUR GUIDES</Text>
         <View style={styles.guideContainer}>
-          {users.length == 0 ? (
+          {tour.guides == 0 ? (
             <Text>Loading...</Text>
           ) : (
             <FlatList
               data={tour.guides}
-              renderItem={(item) => {
-                const guide = users.data.find((g) => g._id === item.item._id);
-                return <GuideProfile guide={guide} />;
-              }}
+              renderItem={(item) => <GuideProfile guide={item} />}
               horizontal
               showsHorizontalScrollIndicator={false}
             />

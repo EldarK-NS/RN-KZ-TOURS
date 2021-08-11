@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../redux/actions/auth";
+import { useSelector } from "react-redux";
 
 export default function SignUp() {
   const navigation = useNavigation();
@@ -16,6 +17,9 @@ export default function SignUp() {
     dispatch(signUp(name, email, password, passwordConfirm));
     navigation.navigate("HomeScreen");
   };
+
+  const usersState = useSelector((state) => state.auth);
+  console.log(usersState);
 
   return (
     <View style={styles.container}>

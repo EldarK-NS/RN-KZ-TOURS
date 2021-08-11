@@ -56,6 +56,12 @@ const userSchema = new mongoose.Schema(
       default: true,
       select: false, //свойство select - отображение поля при выводе досумента(false-скрыто)
     },
+    favorite: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Tour',
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },
@@ -84,6 +90,14 @@ userSchema.pre('save', function (next) {
 //middleware hide inactivate users when we get all users list, this middleware start works if wi use methods with "find" like findOne, findBy..
 userSchema.pre(/^find/, function (next) {
   this.find({ active: { $ne: false } });
+  next();
+});
+//! Middleware which allow to populate fields, and avoid repeating code
+userSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'favorite',
+    select: '-guides',
+  });
   next();
 });
 

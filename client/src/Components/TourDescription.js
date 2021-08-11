@@ -1,5 +1,11 @@
-import React, { useEffect } from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import React from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  ActivityIndicator,
+} from "react-native";
 import {
   Ionicons,
   MaterialIcons,
@@ -8,6 +14,9 @@ import {
 } from "@expo/vector-icons";
 
 export default function TourDescription({ data }) {
+  if (!data) {
+    return <ActivityIndicator size="large" color="blue" />;
+  }
   return (
     <View style={styles.container}>
       <View style={styles.facts}>

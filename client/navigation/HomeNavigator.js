@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import HomeScreen from "../src/Screens/HomeScreen";
 import TourScreen from "../src/Screens/TourScreen";
@@ -8,23 +8,25 @@ import LogIn from "../src/Screens/LogIn";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 import SignUp from "../src/Screens/SignUp";
-import { useRoute } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../redux/actions/auth";
+// import { addTourToFavorite } from "../redux/actions/users";
+// import axios from "axios";
 
 const HomeStack = createStackNavigator();
-
 export default function HomeNavigator() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const user = useSelector((state) => state.auth);
-  console.log(user);
+  //   console.log(user);
+
   return (
     <HomeStack.Navigator
-    // screenOptions={{
-    //   headerShown: false,
-    // }}
+      initialRouteName="HomeScreen"
+      // screenOptions={{
+      //   headerShown: false,
+      // }}
     >
       <HomeStack.Screen
         name="HomeScreen"
@@ -58,8 +60,25 @@ export default function HomeNavigator() {
       <HomeStack.Screen
         name="Tour"
         component={TourScreen}
-        options={({ route }) => ({ title: route.params.title })}
+        options={({ navigation, route }) => ({
+          headerTitle: route.params.title,
+        })}
       />
+      {/* <HomeStack.Screen
+        name="Tour"
+        component={TourScreen}
+        options={({ route }) => ({
+          title: route.params.title,
+          headerRight: () => (
+            <TouchableOpacity
+              onPress={() => dispatch(addTourToFavorite(route.params.id))}
+              style={{ marginRight: 20 }}
+            >
+              <AntDesign name="pluscircleo" size={30} color="red" />
+            </TouchableOpacity>
+          ),
+        })}
+      /> */}
       <HomeStack.Screen
         name="Map"
         component={MapReviewScreen}

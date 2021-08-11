@@ -4,14 +4,16 @@ import { useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../../redux/actions/auth";
 
+//TODO доделать анимацию для полей ввода, глаз, добавить сообщение об ошибке и переход на главную только по результату
+
 export default function LogIn() {
   const navigation = useNavigation();
 
   //   const user = useSelector((state) => state.auth);
-  //   console.log(user);
+  //  console.log(user);
 
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("loulou@example.com");
+  const [email, setEmail] = useState("test@test.com");
   const [password, setPassword] = useState("test1234");
 
   const handlerSubmit = () => {
